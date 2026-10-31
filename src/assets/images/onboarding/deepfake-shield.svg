@@ -1,0 +1,40 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="card" x1="60" y1="40" x2="170" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4B4B4B"/>
+      <stop offset="1" stop-color="#161719"/>
+    </linearGradient>
+    <linearGradient id="face" x1="90" y1="70" x2="150" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F3F4F6"/>
+      <stop offset="1" stop-color="#9DA5B6"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="150" y1="120" x2="210" y2="210" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#BBBCBD"/>
+    </linearGradient>
+    <linearGradient id="noise" x1="40" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Pixels dissolving off the photo -->
+  <rect x="26" y="78" width="10" height="10" fill="#4B4B4B"/>
+  <rect x="14" y="104" width="7" height="7" fill="#858894"/>
+  <rect x="34" y="122" width="12" height="12" fill="#1C1D20"/>
+  <rect x="20" y="146" width="8" height="8" fill="#4B4B4B"/>
+  <rect x="40" y="96" width="8" height="8" fill="#BBBCBD"/>
+  <rect x="44" y="160" width="9" height="9" fill="#858894"/>
+  <!-- Photo card with a portrait -->
+  <rect x="58" y="40" width="124" height="160" rx="18" fill="url(#card)"/>
+  <circle cx="120" cy="104" r="28" fill="url(#face)"/>
+  <path d="M72 200c4-34 24-52 48-52s44 18 48 52H72Z" fill="url(#face)"/>
+  <!-- Invisible protection noise -->
+  <rect x="58" y="112" width="124" height="6" fill="url(#noise)"/>
+  <rect x="58" y="132" width="124" height="3" fill="url(#noise)"/>
+  <rect x="58" y="84" width="124" height="3" fill="url(#noise)"/>
+  <!-- Shield in front -->
+  <path d="M182 122l30 11v26c0 22-14 38-30 45-16-7-30-23-30-45v-26l30-11Z" fill="#1C1D20"/>
+  <path d="M182 130l23 8.5V159c0 17-10.5 29.5-23 35.5-12.5-6-23-18.5-23-35.5v-20.5L182 130Z" fill="url(#shield)"/>
+  <path d="M171 162l8 8 15-17" stroke="#1C1D20" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

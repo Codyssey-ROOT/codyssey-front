@@ -11,6 +11,7 @@ const buttonVariants = cva(
         secondary:
           "border border-border-1 bg-white text-fg-title hover:bg-bg-gray active:bg-surface-7",
         blue: "bg-primary text-white hover:bg-primary-hover active:bg-primary-active",
+        danger: "bg-warning text-white hover:bg-warning/90 active:bg-warning/80",
       },
       isFullWidth: {
         true: "w-full",
