@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
 import "@/styles/globals.css";
+import { AppToast } from "@/components/common/AppToast";
 import { QueryProvider } from "@/components/providers/query-provider";
 
 const pretendard = localFont({
@@ -36,6 +37,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       >
         <QueryProvider>
           <div className="flex min-h-screen w-full max-w-md flex-col bg-white">{children}</div>
+          <AppToast />
         </QueryProvider>
       </body>
     </html>
