@@ -6,10 +6,12 @@ import logo from "@/assets/images/logo.svg";
 import { KakaoLoginButton } from "@/components/home/KakaoLoginButton";
 import { SERVICE_NAME } from "@/const/service";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
+// const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 
 const handleLogin = () => {
-  window.location.href = `${API_BASE_URL}/auth/kakao/authorize`;
+  // window.location.href = `${API_BASE_URL}/auth/kakao/authorize`;
+  // todo: 임시 홈 화면 이동
+  window.location.href = "/home";
 };
 
 const LandingPage = () => {
