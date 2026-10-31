@@ -7,6 +7,7 @@ import Cropper from "react-easy-crop";
 
 import { BottomCTA } from "@/components/common/BottomCTA";
 import { Button } from "@/components/common/Button";
+import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 import { PageHeader } from "@/components/common/PageHeader";
 import { usePhotoEditor } from "@/hooks/photo/usePhotoEditor";
 import { usePhotoDraftStore } from "@/store/photo-draft";
@@ -30,6 +31,7 @@ const PhotoEditPage = () => {
   } = usePhotoEditor(originalFile);
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [isLeaveDialogOpen, setIsLeaveDialogOpen] = useState(false);
 
   useEffect(() => {
     if (!originalFile) router.replace("/home");
@@ -63,7 +65,7 @@ const PhotoEditPage = () => {
       <PageHeader
         tone="dark"
         title="사진 편집"
-        onBack={() => router.back()}
+        onBack={() => setIsLeaveDialogOpen(true)}
         action={
           <button type="button" onClick={reset}>
             초기화
@@ -132,6 +134,15 @@ const PhotoEditPage = () => {
           등록하고 안전 점검 하기
         </Button>
       </BottomCTA>
+      <ConfirmDialog
+        open={isLeaveDialogOpen}
+        onOpenChange={setIsLeaveDialogOpen}
+        title="편집을 그만둘까요?"
+        description="지금까지 편집한 내용은 저장되지 않아요"
+        confirmLabel="그만두기"
+        cancelLabel="계속 편집"
+        onConfirm={() => router.back()}
+      />
     </div>
   );
 };
