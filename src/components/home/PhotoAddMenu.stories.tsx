@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { PhotoAddMenu } from "./PhotoAddMenu";
 
 const meta = {
   title: "Home/PhotoAddMenu",
   component: PhotoAddMenu,
-  parameters: { mobile: true },
-  args: { onSelectPhoto: fn() },
+  parameters: { mobile: true, nextjs: { appDirectory: true } },
   decorators: [
     (Story) => (
       <div className="relative h-150">
@@ -28,9 +27,7 @@ export const OpenAndClose: Story = {
     const closeButton = canvas.getByRole("button", { name: "사진 추가 메뉴 닫기" });
     await expect(closeButton).toHaveAttribute("aria-expanded", "true");
 
-    const dim = canvasElement.querySelector<HTMLElement>("[aria-hidden][data-open]");
-    await expect(dim).not.toBeNull();
-    if (dim) await userEvent.click(dim);
+    await userEvent.click(canvas.getByRole("button", { name: "사진 및 앨범 메뉴용 플로팅 버튼" }));
     await expect(canvas.getByRole("button", { name: "사진 추가" })).toHaveAttribute(
       "aria-expanded",
       "false",
