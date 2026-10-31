@@ -1,6 +1,6 @@
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 
-const REISSUE_PATH = "/auth/reissue";
+const REISSUE_PATH = "/users/reissue";
 const LOGIN_PAGE_PATH = "/";
 
 export class HttpError extends Error {
