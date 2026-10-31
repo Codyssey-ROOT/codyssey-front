@@ -10,12 +10,12 @@ const meta = {
     items: [
       { href: "/", label: "홈", icon: <House aria-hidden strokeWidth={1.5} /> },
       { href: "/storage", label: "보관함", icon: <LayoutGrid aria-hidden strokeWidth={1.5} /> },
-      { href: "/me", label: "내 정보", icon: <User aria-hidden strokeWidth={1.5} /> },
+      { href: "/myPage", label: "내 정보", icon: <User aria-hidden strokeWidth={1.5} /> },
     ],
     activeHref: "/",
   },
   argTypes: {
-    activeHref: { control: "inline-radio", options: ["/", "/storage", "/me"] },
+    activeHref: { control: "inline-radio", options: ["/", "/storage", "/myPage"] },
   },
 } satisfies Meta<typeof TabBar>;
 
