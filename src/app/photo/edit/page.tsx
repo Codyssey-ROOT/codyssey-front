@@ -10,11 +10,13 @@ import { Button } from "@/components/common/Button";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 import { PageHeader } from "@/components/common/PageHeader";
 import { usePhotoEditor } from "@/hooks/photo/usePhotoEditor";
+import { useUploadPhotoMutation } from "@/hooks/photo/usePhotosQuery";
 import { usePhotoDraftStore } from "@/store/photo-draft";
 
 const PhotoEditPage = () => {
   const router = useRouter();
   const originalFile = usePhotoDraftStore((state) => state.originalFile);
+  const resetDraft = usePhotoDraftStore((state) => state.reset);
   const {
     edit,
     preview,
@@ -29,6 +31,7 @@ const PhotoEditPage = () => {
     reset,
     exportBlob,
   } = usePhotoEditor(originalFile);
+  const uploadPhotoMutation = useUploadPhotoMutation();
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [isLeaveDialogOpen, setIsLeaveDialogOpen] = useState(false);
@@ -43,19 +46,19 @@ const PhotoEditPage = () => {
     try {
       const blob = await exportBlob();
       if (!blob) return;
-      // TODO: 등록 API 연동 후 blob을 전송
-      // 사진 등록 후 사진 등록 순서
-      // 1. spring: call S3 Key
-      // 2. response S3 key
-      // 3. call S3
-      // 4. response S3
-      // 5. Spring에 complete를 보낼때 같이 routing
+      await uploadPhotoMutation.mutateAsync(blob);
       router.replace("/photo/complete");
     } catch (error) {
       setSaveError(error instanceof Error ? error.message : "사진을 저장하지 못했어요");
     } finally {
       setIsSaving(false);
     }
+  };
+
+  // Clears the photo so coming back (e.g. browser forward) does not reopen it.
+  const handleLeave = () => {
+    resetDraft();
+    router.back();
   };
 
   const message = errorMessage ?? saveError;
@@ -141,7 +144,7 @@ const PhotoEditPage = () => {
         description="지금까지 편집한 내용은 저장되지 않아요"
         confirmLabel="그만두기"
         cancelLabel="계속 편집"
-        onConfirm={() => router.back()}
+        onConfirm={handleLeave}
       />
     </div>
   );
