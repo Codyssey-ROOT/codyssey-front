@@ -1,6 +1,12 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { deletePhoto, fetchPhoto, fetchPhotos, fetchPhotosByStatus } from "@/apis/photo/api";
+import {
+  deletePhoto,
+  fetchPhoto,
+  fetchPhotos,
+  fetchPhotosByStatus,
+  requestPhotoRecheck,
+} from "@/apis/photo/api";
 import { photoKeys } from "@/apis/photo/keys";
 import type { PhotoStatus } from "@/types/photo";
 
@@ -35,6 +41,18 @@ export const useDeletePhotoMutation = () => {
     mutationFn: deletePhoto,
     onSuccess: (_data, id) => {
       queryClient.removeQueries({ queryKey: photoKeys.detail(id) });
+      return queryClient.invalidateQueries({ queryKey: photoKeys.lists() });
+    },
+  });
+};
+
+export const useRecheckPhotoMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: requestPhotoRecheck,
+    onSuccess: (_data, id) => {
+      void queryClient.invalidateQueries({ queryKey: photoKeys.detail(id) });
       return queryClient.invalidateQueries({ queryKey: photoKeys.lists() });
     },
   });

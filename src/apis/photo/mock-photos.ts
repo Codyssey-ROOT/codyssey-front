@@ -26,6 +26,12 @@ const deletedMockPhotoIds = new Set<string>();
 
 export const deleteMockPhoto = (id: string) => deletedMockPhotoIds.add(id);
 
+// Status changes (e.g. a recheck) also live only until the page reloads.
+const mockStatusOverrides = new Map<string, PhotoStatus>();
+
+export const setMockPhotoStatus = (id: string, status: PhotoStatus) =>
+  mockStatusOverrides.set(id, status);
+
 export const getMockPhotos = (): PhotoDto[] =>
   MOCK_SCENARIOS[getMockScenario()]
     .map((status, index) => ({
@@ -33,7 +39,7 @@ export const getMockPhotos = (): PhotoDto[] =>
       // TODO: 랜덤 목업 데이터 호출 부분, 제거 필요
       imageUrl: `https://picsum.photos/seed/deepfence-${index}/600/600`,
       filteredImageUrl: `https://picsum.photos/seed/deepfence-${index}/600/600?blur=4`,
-      status,
+      status: mockStatusOverrides.get(`mock-${index}`) ?? status,
       createdAt: new Date(MOCK_BASE_TIME - index * DAY_MS).toISOString(),
     }))
     .filter((photo) => !deletedMockPhotoIds.has(photo.id));
