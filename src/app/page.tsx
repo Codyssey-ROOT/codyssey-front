@@ -1,14 +1,11 @@
 "use client";
 
+import { getKakaoLoginUrl } from "@/apis/auth/api";
 import { KakaoLoginButton } from "@/components/home/KakaoLoginButton";
 import { OnboardingCarousel } from "@/components/onboarding/OnboardingCarousel";
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
-
 const handleLogin = () => {
-  // window.location.href = `${API_BASE_URL}/auth/kakao/authorize`;
-  // todo: 임시 홈 화면 이동
-  window.location.href = "/home";
+  window.location.href = getKakaoLoginUrl();
 };
 
 const LandingPage = () => {

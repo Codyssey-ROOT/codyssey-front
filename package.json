@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:local": "next dev -H local.deepfence.site --experimental-https --experimental-https-key ./certificates/local.deepfence.site-key.pem --experimental-https-cert ./certificates/local.deepfence.site.pem",
     "build": "next build",
     "start": "next start",
     "lint": "oxlint",
