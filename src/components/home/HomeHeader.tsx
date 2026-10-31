@@ -22,7 +22,7 @@ export const HomeHeader = ({ hasNotification = false, onNotificationClick }: Hom
         aria-label={`${SERVICE_NAME} 홈으로 이동`}
         className="flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
       >
-        <Image src={textLogo} alt={SERVICE_NAME} className="h-7 w-auto" priority />
+        <Image src={textLogo} alt={SERVICE_NAME} className="h-7 w-auto translate-y-0.75" priority />
       </Link>
       <nav aria-label="사용자 메뉴" className="flex items-center">
         <button
