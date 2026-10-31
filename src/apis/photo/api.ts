@@ -19,3 +19,10 @@ export const fetchPhotos = async ({ cursor = 0 }: FetchPhotosRequest): Promise<P
     nextCursor: nextCursor < photos.length ? nextCursor : null,
   };
 };
+
+export const fetchPhoto = async (id: string): Promise<PhotoDto> => {
+  await waitForMockNetwork();
+  const photo = getMockPhotos().find((item) => item.id === id);
+  if (!photo) throw new Error("사진을 찾을 수 없어요");
+  return photo;
+};

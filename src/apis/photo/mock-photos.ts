@@ -26,6 +26,7 @@ export const getMockPhotos = (): PhotoDto[] =>
     id: `mock-${index}`,
     // TODO: 랜덤 목업 데이터 호출 부분, 제거 필요
     imageUrl: `https://picsum.photos/seed/deepfence-${index}/600/600`,
+    filteredImageUrl: `https://picsum.photos/seed/deepfence-${index}/600/600?blur=4`,
     status,
     createdAt: new Date(MOCK_BASE_TIME - index * DAY_MS).toISOString(),
   }));
