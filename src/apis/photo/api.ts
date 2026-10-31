@@ -1,5 +1,10 @@
 import type { FetchPhotosRequest, PhotoDto, PhotoPageDto, PhotoStatus } from "@/types/photo";
-import { deleteMockPhoto, getMockPhotos, waitForMockNetwork } from "./mock-photos";
+import {
+  deleteMockPhoto,
+  getMockPhotos,
+  setMockPhotoStatus,
+  waitForMockNetwork,
+} from "./mock-photos";
 
 const PAGE_SIZE = 10;
 
@@ -30,4 +35,10 @@ export const fetchPhoto = async (id: string): Promise<PhotoDto> => {
 export const deletePhoto = async (id: string): Promise<void> => {
   await waitForMockNetwork();
   deleteMockPhoto(id);
+};
+
+// Sends the photo back to review; it shows up as 모델링 진행중 until the check finishes.
+export const requestPhotoRecheck = async (id: string): Promise<void> => {
+  await waitForMockNetwork();
+  setMockPhotoStatus(id, "inProgress");
 };

@@ -4,4 +4,6 @@ export interface NotificationDto {
   message: string;
   /** ISO 8601 */
   createdAt: string;
+  /** In-app page the notification opens, if any. */
+  link?: string;
 }
