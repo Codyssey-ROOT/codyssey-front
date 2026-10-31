@@ -15,8 +15,13 @@ const handleLogin = () => {
 const LandingPage = () => {
   return (
     <main className="flex min-h-dvh flex-col px-4">
-      <section className="flex flex-1 flex-col items-center justify-center gap-10 text-center">
-        <Image src={logo} alt={`${SERVICE_NAME} 로고`} className="size-41" priority />
+      <section className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
+        <Image
+          src={logo}
+          alt={`${SERVICE_NAME} 로고`}
+          className="size-60 object-contain antialiased image-render-auto"
+          priority
+        />
         <div className="flex flex-col gap-2">
           <h1 className="text-h1 text-fg-title">{SERVICE_NAME}</h1>
           <p className="text-body-3 text-fg-primary">
