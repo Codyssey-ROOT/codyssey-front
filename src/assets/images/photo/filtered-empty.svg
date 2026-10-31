@@ -1,0 +1,26 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="card" x1="60" y1="40" x2="170" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E9EBEF"/>
+    </linearGradient>
+    <linearGradient id="face" x1="90" y1="70" x2="150" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D5D9E0"/>
+      <stop offset="1" stop-color="#B4BAC6"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(-15 -2)">
+    <!-- Photo card waiting for its protected version -->
+    <rect x="58" y="40" width="124" height="160" rx="18" fill="url(#card)"/>
+    <rect x="59" y="41" width="122" height="158" rx="17" stroke="#C9CED7" stroke-width="2" stroke-dasharray="6 6"/>
+    <circle cx="120" cy="104" r="28" fill="url(#face)"/>
+    <path d="M72 199c4-34 24-51 48-51s44 17 48 51H72Z" fill="url(#face)"/>
+    <!-- Shield outline: protection not applied yet -->
+    <path d="M182 122l30 11v26c0 22-14 38-30 45-16-7-30-23-30-45v-26l30-11Z" fill="#FFFFFF"/>
+    <path d="M182 128l25 9.2V159c0 18.4-11.6 31.8-25 38.2-13.4-6.4-25-19.8-25-38.2v-21.8l25-9.2Z" stroke="#9DA5B6" stroke-width="3" stroke-dasharray="5 5" stroke-linejoin="round"/>
+    <!-- Waiting dots -->
+    <circle cx="171" cy="161" r="4" fill="#9DA5B6"/>
+    <circle cx="182" cy="161" r="4" fill="#9DA5B6"/>
+    <circle cx="193" cy="161" r="4" fill="#9DA5B6"/>
+  </g>
+</svg>
