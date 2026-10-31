@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import logo from "@/assets/images/logo.svg";
 import { EmptyState } from "@/components/common/EmptyState";
 import { Toast } from "@/components/common/Toast";
@@ -13,6 +15,7 @@ import { usePhotosByStatusQuery, usePhotosInfiniteQuery } from "@/hooks/photo/us
 import type { PhotoDto } from "@/types/photo";
 
 const HomePage = () => {
+  const router = useRouter();
   const inProgressQuery = usePhotosByStatusQuery("inProgress");
   const vulnerableQuery = usePhotosByStatusQuery("vulnerable");
   const allQuery = usePhotosInfiniteQuery();
@@ -36,7 +39,8 @@ const HomePage = () => {
       showToast("모델링이 끝나면 확인할 수 있어요");
       return;
     }
-    // TODO: 사진 상세 페이지가 생기면 이동
+    // Keeps ?mock= so the detail page reads the same mock data.
+    router.push(`/photo/${photo.id}${window.location.search}`);
   };
 
   const renderContent = () => {
