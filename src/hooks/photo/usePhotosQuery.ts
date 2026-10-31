@@ -1,20 +1,27 @@
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  queryOptions,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import {
   deletePhoto,
   fetchPhoto,
   fetchPhotos,
-  fetchPhotosByStatus,
+  fetchPhotoStatuses,
   requestPhotoRecheck,
 } from "@/apis/photo/api";
 import { photoKeys } from "@/apis/photo/keys";
 import { uploadPhoto } from "@/apis/photo/upload";
-import type { PhotoStatus } from "@/types/photo";
 
-export const usePhotosByStatusQuery = (status: PhotoStatus) => {
+// Both lists come from one request; each caller selects its own.
+export const usePhotosByStatusQuery = (status: "inProgress" | "vulnerable") => {
   return useQuery({
-    queryKey: photoKeys.byStatus(status),
-    queryFn: () => fetchPhotosByStatus(status),
+    queryKey: photoKeys.statuses(),
+    queryFn: fetchPhotoStatuses,
+    select: (data) => data[status],
   });
 };
 
@@ -22,17 +29,26 @@ export const usePhotosInfiniteQuery = () => {
   return useInfiniteQuery({
     queryKey: photoKeys.infinite(),
     queryFn: ({ pageParam }) => fetchPhotos({ cursor: pageParam }),
-    initialPageParam: 0,
+    initialPageParam: undefined as number | undefined,
     getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
     select: (data) => data.pages.flatMap((page) => page.photos),
   });
 };
 
-export const usePhotoQuery = (id: string) => {
-  return useQuery({
+const photoQueryOptions = (id: string) =>
+  queryOptions({
     queryKey: photoKeys.detail(id),
     queryFn: () => fetchPhoto(id),
   });
+
+export const usePhotoQuery = (id: string) => {
+  return useQuery(photoQueryOptions(id));
+};
+
+// Loads a photo before navigating; the result is cached for the detail page.
+export const useFetchPhoto = () => {
+  const queryClient = useQueryClient();
+  return (id: string) => queryClient.fetchQuery(photoQueryOptions(id));
 };
 
 export const useDeletePhotoMutation = () => {

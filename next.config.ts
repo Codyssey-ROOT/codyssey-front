@@ -8,10 +8,10 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["local.deepfence.site"],
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "picsum.photos" },
-      { protocol: "https", hostname: "fastly.picsum.photos" },
       // Kakao profile images (served over both http and https).
       { hostname: "**.kakaocdn.net" },
+      // Uploaded photos (served through CloudFront).
+      { protocol: "https", hostname: "d1fhuzgwaqht7z.cloudfront.net" },
     ],
   },
   turbopack: {

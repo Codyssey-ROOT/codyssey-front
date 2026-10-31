@@ -12,8 +12,12 @@ import { RiskSummaryCard } from "@/components/home/RiskSummaryCard";
 import { SERVICE_NAME } from "@/const/service";
 import { useInfiniteScroll } from "@/hooks/common/useInfiniteScroll";
 import { useToast } from "@/hooks/common/useToast";
-import { usePhotosByStatusQuery, usePhotosInfiniteQuery } from "@/hooks/photo/usePhotosQuery";
-import type { PhotoDto } from "@/types/photo";
+import {
+  useFetchPhoto,
+  usePhotosByStatusQuery,
+  usePhotosInfiniteQuery,
+} from "@/hooks/photo/usePhotosQuery";
+import type { PhotoDto, PhotoStatus } from "@/types/photo";
 
 const HomePage = () => {
   const router = useRouter();
@@ -21,6 +25,7 @@ const HomePage = () => {
   const vulnerableQuery = usePhotosByStatusQuery("vulnerable");
   const allQuery = usePhotosInfiniteQuery();
   const { showToast } = useToast();
+  const fetchPhoto = useFetchPhoto();
 
   const { hasNextPage, isFetchingNextPage, fetchNextPage } = allQuery;
   const loadMoreRef = useInfiniteScroll(
@@ -30,7 +35,14 @@ const HomePage = () => {
 
   const inProgressPhotos = inProgressQuery.data ?? [];
   const vulnerablePhotos = vulnerableQuery.data ?? [];
-  const allPhotos = allQuery.data ?? [];
+  // The full list carries no status, so take it from the in-progress / vulnerable lists.
+  const statusById = new Map<string, PhotoStatus>(
+    [...inProgressPhotos, ...vulnerablePhotos].map((photo) => [photo.id, photo.status]),
+  );
+  const allPhotos = (allQuery.data ?? []).map((photo) => ({
+    ...photo,
+    status: statusById.get(photo.id) ?? photo.status,
+  }));
 
   const isLoading = inProgressQuery.isPending || vulnerableQuery.isPending || allQuery.isPending;
   const isError = inProgressQuery.isError || vulnerableQuery.isError || allQuery.isError;
@@ -41,13 +53,22 @@ const HomePage = () => {
     void allQuery.refetch();
   };
 
-  const handlePhotoClick = (photo: PhotoDto) => {
+  const handlePhotoClick = async (photo: PhotoDto) => {
     if (photo.status === "inProgress") {
       showToast("모델링이 끝나면 확인할 수 있어요");
       return;
     }
-    // Keeps ?mock= so the detail page reads the same mock data.
-    router.push(`/photo/${photo.id}${window.location.search}`);
+    try {
+      const detail = await fetchPhoto(photo.id);
+      // Without the protected version there is nothing to compare on the detail page.
+      if (!detail.filteredImageUrl) {
+        showToast("보호 처리된 사진이 아직 없어요");
+        return;
+      }
+      router.push(`/photo/${photo.id}`);
+    } catch {
+      showToast("사진 정보를 불러오지 못했어요");
+    }
   };
 
   const renderContent = () => {
