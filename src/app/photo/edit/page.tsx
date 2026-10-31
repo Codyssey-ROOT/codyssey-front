@@ -10,6 +10,7 @@ import { Button } from "@/components/common/Button";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 import { PageHeader } from "@/components/common/PageHeader";
 import { usePhotoEditor } from "@/hooks/photo/usePhotoEditor";
+import { useUploadPhotoMutation } from "@/hooks/photo/usePhotosQuery";
 import { usePhotoDraftStore } from "@/store/photo-draft";
 
 const PhotoEditPage = () => {
@@ -29,6 +30,7 @@ const PhotoEditPage = () => {
     reset,
     exportBlob,
   } = usePhotoEditor(originalFile);
+  const uploadPhotoMutation = useUploadPhotoMutation();
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [isLeaveDialogOpen, setIsLeaveDialogOpen] = useState(false);
@@ -43,13 +45,7 @@ const PhotoEditPage = () => {
     try {
       const blob = await exportBlob();
       if (!blob) return;
-      // TODO: 등록 API 연동 후 blob을 전송
-      // 사진 등록 후 사진 등록 순서
-      // 1. spring: call S3 Key
-      // 2. response S3 key
-      // 3. call S3
-      // 4. response S3
-      // 5. Spring에 complete를 보낼때 같이 routing
+      await uploadPhotoMutation.mutateAsync(blob);
       router.replace("/photo/complete");
     } catch (error) {
       setSaveError(error instanceof Error ? error.message : "사진을 저장하지 못했어요");

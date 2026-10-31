@@ -8,6 +8,7 @@ import {
   requestPhotoRecheck,
 } from "@/apis/photo/api";
 import { photoKeys } from "@/apis/photo/keys";
+import { uploadPhoto } from "@/apis/photo/upload";
 import type { PhotoStatus } from "@/types/photo";
 
 export const usePhotosByStatusQuery = (status: PhotoStatus) => {
@@ -55,5 +56,14 @@ export const useRecheckPhotoMutation = () => {
       void queryClient.invalidateQueries({ queryKey: photoKeys.detail(id) });
       return queryClient.invalidateQueries({ queryKey: photoKeys.lists() });
     },
+  });
+};
+
+export const useUploadPhotoMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: uploadPhoto,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: photoKeys.lists() }),
   });
 };

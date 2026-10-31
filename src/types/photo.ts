@@ -17,3 +17,25 @@ export interface PhotoPageDto {
   photos: PhotoDto[];
   nextCursor: number | null;
 }
+
+export interface CreateUploadUrlRequest {
+  contentType: string;
+  /** Extension without the dot, e.g. "jpg" */
+  fileExt: string;
+  /** Bytes */
+  fileSize: number;
+}
+
+export interface UploadUrlDto {
+  imageId: number;
+  /** Presigned S3 PUT URL */
+  uploadUrl: string;
+  objectKey: string;
+  publicUrl: string;
+  contentType: string;
+  expiresInSeconds: number;
+}
+
+export interface CompleteUploadRequest {
+  objectKey: string;
+}
