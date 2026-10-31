@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { TriangleAlert } from "lucide-react";
-import { Badge } from "./Badge";
 import { ImageCard } from "./ImageCard";
 
 const meta = {
-  title: "Components/ImageCard",
+  title: "Photo/ImageCard",
   component: ImageCard,
-  args: { alt: "", title: "Title", date: "00.00.00" },
+  args: { alt: "", status: "inProgress" },
+  argTypes: {
+    status: { control: "inline-radio", options: ["inProgress", "vulnerable", "safe"] },
+  },
   decorators: [
     (Story) => (
       <div className="w-40">
@@ -19,15 +20,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Figma: Image */
-export const WithBadge: Story = {
-  args: {
-    badge: (
-      <Badge variant="danger">
-        <TriangleAlert aria-hidden />
-        3건
-      </Badge>
-    ),
-  },
-};
-export const Plain: Story = {};
+export const InProgress: Story = {};
+
+export const Vulnerable: Story = { args: { status: "vulnerable" } };
+
+export const Safe: Story = { args: { status: "safe" } };
