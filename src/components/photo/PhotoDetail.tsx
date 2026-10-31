@@ -7,12 +7,13 @@ import { useState } from "react";
 
 import { BottomCTA } from "@/components/common/BottomCTA";
 import { Button } from "@/components/common/Button";
+import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 import { Menu } from "@/components/common/Menu";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Toast } from "@/components/common/Toast";
 import { PhotoProtectionResult } from "./PhotoProtectionResult";
 import { useToast } from "@/hooks/common/useToast";
-import { usePhotoQuery } from "@/hooks/photo/usePhotosQuery";
+import { useDeletePhotoMutation, usePhotoQuery } from "@/hooks/photo/usePhotosQuery";
 
 const FILTER_TABS = [
   { value: "before", label: "필터링 전" },
@@ -25,6 +26,22 @@ export const PhotoDetail = () => {
   const { data: photo, isPending, isError } = usePhotoQuery(photoId);
   const [filterTab, setFilterTab] = useState("before");
   const { message, showToast } = useToast();
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const deletePhotoMutation = useDeletePhotoMutation();
+
+  const handleDelete = () => {
+    deletePhotoMutation.mutate(photoId, {
+      onSuccess: () => {
+        setIsDeleteDialogOpen(false);
+        // Keeps ?mock= so home shows the same mock data minus this photo.
+        router.replace(`/home${window.location.search}`);
+      },
+      onError: () => {
+        setIsDeleteDialogOpen(false);
+        showToast("사진을 삭제하지 못했어요");
+      },
+    });
+  };
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -88,8 +105,7 @@ export const PhotoDetail = () => {
         title="상세 정보"
         onBack={() => router.back()}
         action={
-          // TODO: 삭제 API 연동
-          <button type="button" disabled={!isReady}>
+          <button type="button" disabled={!isReady} onClick={() => setIsDeleteDialogOpen(true)}>
             삭제
           </button>
         }
@@ -119,6 +135,15 @@ export const PhotoDetail = () => {
           재점검
         </Button>
       </BottomCTA>
+      <ConfirmDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+        title="사진을 삭제할까요?"
+        description="삭제한 사진은 되돌릴 수 없어요"
+        confirmLabel="삭제"
+        onConfirm={handleDelete}
+        isConfirming={deletePhotoMutation.isPending}
+      />
       <Toast message={message} />
     </div>
   );
