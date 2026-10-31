@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import logo from "@/assets/images/logo.png";
+import logo from "@/assets/images/logo.svg";
 import { KakaoLoginButton } from "@/components/home/KakaoLoginButton";
 import { SERVICE_NAME } from "@/const/service";
 
@@ -19,7 +19,7 @@ const LandingPage = () => {
         <Image
           src={logo}
           alt={`${SERVICE_NAME} 로고`}
-          className="size-60 object-contain antialiased image-render-auto"
+          className="size-80 object-contain antialiased image-render-auto"
           priority
         />
         <div className="flex flex-col gap-2">
