@@ -5,7 +5,7 @@ import { HomeHeader } from "./HomeHeader";
 const meta = {
   title: "Home/HomeHeader",
   component: HomeHeader,
-  parameters: { mobile: true },
+  parameters: { mobile: true, nextjs: { appDirectory: true } },
   args: { onNotificationClick: fn() },
 } satisfies Meta<typeof HomeHeader>;
 

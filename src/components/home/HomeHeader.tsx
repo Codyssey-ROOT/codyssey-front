@@ -1,4 +1,4 @@
-import { Bell, BellDot } from "lucide-react";
+import { Bell, BellDot, CircleUserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,11 +10,13 @@ export interface HomeHeaderProps {
   onNotificationClick?: () => void;
 }
 
+const ICON_BUTTON_CLASS_NAME = "flex size-10 items-center justify-center text-fg-title";
+
 export const HomeHeader = ({ hasNotification = false, onNotificationClick }: HomeHeaderProps) => {
   const NotificationIcon = hasNotification ? BellDot : Bell;
 
   return (
-    <header className="flex h-14 shrink-0 items-center justify-between bg-white px-4">
+    <header className="flex h-14 shrink-0 items-center justify-between bg-white pr-2 pl-4">
       <Link
         href="/home"
         aria-label={`${SERVICE_NAME} 홈으로 이동`}
@@ -22,14 +24,19 @@ export const HomeHeader = ({ hasNotification = false, onNotificationClick }: Hom
       >
         <Image src={textLogo} alt={SERVICE_NAME} className="h-7 w-auto" priority />
       </Link>
-      <button
-        type="button"
-        onClick={onNotificationClick}
-        aria-label={hasNotification ? "새 알림 있음" : "알림"}
-        className="flex size-10 items-center justify-center text-fg-title"
-      >
-        <NotificationIcon aria-hidden className="size-6" strokeWidth={1.5} />
-      </button>
+      <nav aria-label="사용자 메뉴" className="flex items-center">
+        <button
+          type="button"
+          onClick={onNotificationClick}
+          aria-label={hasNotification ? "새 알림 있음" : "알림"}
+          className={ICON_BUTTON_CLASS_NAME}
+        >
+          <NotificationIcon aria-hidden className="size-6" strokeWidth={1.5} />
+        </button>
+        <Link href="/myPage" aria-label="내 정보" className={ICON_BUTTON_CLASS_NAME}>
+          <CircleUserRound aria-hidden className="size-6" strokeWidth={1.5} />
+        </Link>
+      </nav>
     </header>
   );
 };
