@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "picsum.photos" },
       { protocol: "https", hostname: "fastly.picsum.photos" },
+      // Kakao profile images (served over both http and https).
+      { hostname: "**.kakaocdn.net" },
     ],
   },
   turbopack: {
