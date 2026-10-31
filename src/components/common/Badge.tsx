@@ -9,6 +9,7 @@ const badgeVariants = cva(
       variant: {
         info: "rounded-full bg-surface-2 text-primary-dark",
         danger: "rounded-8 bg-warning text-white",
+        success: "rounded-full border border-success bg-white text-success",
       },
     },
     defaultVariants: {

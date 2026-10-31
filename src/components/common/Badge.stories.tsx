@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { TriangleAlert } from "lucide-react";
+import { ShieldCheck, TriangleAlert } from "lucide-react";
 import { Badge } from "./Badge";
 
 const meta = {
   title: "Components/Badge",
   component: Badge,
   args: { children: "가는중" },
-  argTypes: { variant: { control: "inline-radio", options: ["info", "danger"] } },
+  argTypes: { variant: { control: "inline-radio", options: ["info", "danger", "success"] } },
 } satisfies Meta<typeof Badge>;
 
 export default meta;
@@ -22,6 +22,18 @@ export const Danger: Story = {
       <>
         <TriangleAlert aria-hidden />
         3건
+      </>
+    ),
+  },
+};
+
+export const Success: Story = {
+  args: {
+    variant: "success",
+    children: (
+      <>
+        <ShieldCheck aria-hidden />
+        보호됨
       </>
     ),
   },
