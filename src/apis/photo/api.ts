@@ -1,0 +1,21 @@
+import type { FetchPhotosRequest, PhotoDto, PhotoPageDto, PhotoStatus } from "@/types/photo";
+import { getMockPhotos, waitForMockNetwork } from "./mock-photos";
+
+const PAGE_SIZE = 10;
+
+// TODO: 사진 API가 나오면 http-client 호출로 교체
+export const fetchPhotosByStatus = async (status: PhotoStatus): Promise<PhotoDto[]> => {
+  await waitForMockNetwork();
+  return getMockPhotos().filter((photo) => photo.status === status);
+};
+
+export const fetchPhotos = async ({ cursor = 0 }: FetchPhotosRequest): Promise<PhotoPageDto> => {
+  await waitForMockNetwork();
+  const photos = getMockPhotos();
+  const nextCursor = cursor + PAGE_SIZE;
+
+  return {
+    photos: photos.slice(cursor, nextCursor),
+    nextCursor: nextCursor < photos.length ? nextCursor : null,
+  };
+};
