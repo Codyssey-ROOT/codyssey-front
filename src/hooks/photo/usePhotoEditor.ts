@@ -21,6 +21,18 @@ export const usePhotoEditor = (file: File | null) => {
   const [crop, setCrop] = useState<Point>(INITIAL_CROP);
   const [zoom, setZoom] = useState(1);
   const [cropArea, setCropArea] = useState<Area | null>(null);
+  const [editingFile, setEditingFile] = useState(file);
+
+  // Next keeps the page's state between visits, so a new photo must start from a clean edit.
+  if (file !== editingFile) {
+    setEditingFile(file);
+    setImage(null);
+    setErrorMessage(null);
+    setEdit(INITIAL_EDIT);
+    setCrop(INITIAL_CROP);
+    setZoom(1);
+    setCropArea(null);
+  }
 
   useEffect(() => {
     if (!file) return;

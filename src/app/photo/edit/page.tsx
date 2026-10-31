@@ -16,6 +16,7 @@ import { usePhotoDraftStore } from "@/store/photo-draft";
 const PhotoEditPage = () => {
   const router = useRouter();
   const originalFile = usePhotoDraftStore((state) => state.originalFile);
+  const resetDraft = usePhotoDraftStore((state) => state.reset);
   const {
     edit,
     preview,
@@ -52,6 +53,12 @@ const PhotoEditPage = () => {
     } finally {
       setIsSaving(false);
     }
+  };
+
+  // Clears the photo so coming back (e.g. browser forward) does not reopen it.
+  const handleLeave = () => {
+    resetDraft();
+    router.back();
   };
 
   const message = errorMessage ?? saveError;
@@ -137,7 +144,7 @@ const PhotoEditPage = () => {
         description="지금까지 편집한 내용은 저장되지 않아요"
         confirmLabel="그만두기"
         cancelLabel="계속 편집"
-        onConfirm={() => router.back()}
+        onConfirm={handleLeave}
       />
     </div>
   );
