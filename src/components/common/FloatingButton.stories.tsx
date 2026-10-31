@@ -13,7 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-/** Open state of the add menu */
 export const Close: Story = {
   args: { "aria-label": "닫기", children: <X aria-hidden /> },
 };

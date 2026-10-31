@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 
 import type { PhotoStatus } from "@/types/photo";
 import { cn } from "@/utils/cn";
-import { PhotoStatusBadge } from "./PhotoStatusBadge";
+import { PhotoStatusBadge } from "../photo/PhotoStatusBadge";
 
 type ImageCardProps = ComponentProps<"figure"> & {
   src?: string;

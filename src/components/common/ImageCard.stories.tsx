@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { ImageCard } from "./ImageCard";
 
 const meta = {
-  title: "Photo/ImageCard",
+  title: "Components/ImageCard",
   component: ImageCard,
   args: { alt: "", status: "inProgress" },
   argTypes: {
