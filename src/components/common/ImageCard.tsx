@@ -16,12 +16,14 @@ const ImageCard = ({ src, alt, status, className, ...props }: ImageCardProps) =>
     <figure
       data-slot="image-card"
       data-status={status}
-      className={cn("relative aspect-square overflow-hidden rounded-16 bg-surface-1", className)}
+      className={cn("rounded-20 bg-white p-1.5 shadow-card", className)}
       {...props}
     >
-      {src && <Image src={src} alt={alt} fill sizes="50vw" className="object-cover" />}
-      <div className="absolute top-2 left-2">
-        <PhotoStatusBadge status={status} />
+      <div className="relative aspect-square overflow-hidden rounded-16 bg-surface-1">
+        {src && <Image src={src} alt={alt} fill sizes="50vw" className="object-cover" />}
+        <div className="absolute top-2.5 left-2.5">
+          <PhotoStatusBadge status={status} />
+        </div>
       </div>
     </figure>
   );
