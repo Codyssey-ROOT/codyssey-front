@@ -201,3 +201,36 @@
     @apply font-sans;
   }
 }
+
+.reactEasyCrop_CropArea.photo-crop-area {
+  border: 2px solid var(--color-gray-3);
+  overflow: visible;
+}
+
+.photo-crop-area::before,
+.photo-crop-area::after {
+  content: "";
+  position: absolute;
+  inset-inline: -0.25rem;
+  height: 1.25rem;
+  pointer-events: none;
+  --corner: linear-gradient(var(--color-white), var(--color-white));
+}
+
+.photo-crop-area::before {
+  top: -0.25rem;
+  background:
+    var(--corner) top left / 1.25rem 0.25rem no-repeat,
+    var(--corner) top left / 0.25rem 1.25rem no-repeat,
+    var(--corner) top right / 1.25rem 0.25rem no-repeat,
+    var(--corner) top right / 0.25rem 1.25rem no-repeat;
+}
+
+.photo-crop-area::after {
+  bottom: -0.25rem;
+  background:
+    var(--corner) bottom left / 1.25rem 0.25rem no-repeat,
+    var(--corner) bottom left / 0.25rem 1.25rem no-repeat,
+    var(--corner) bottom right / 1.25rem 0.25rem no-repeat,
+    var(--corner) bottom right / 0.25rem 1.25rem no-repeat;
+}

@@ -1,21 +1,21 @@
 "use client";
 
 import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, type ChangeEvent, useState } from "react";
 
 import { FloatingButton } from "@/components/common/FloatingButton";
+import { usePhotoDraftStore } from "@/store/photo-draft";
 import { cn } from "@/utils/cn";
-
-export interface PhotoAddMenuProps {
-  onSelectPhoto?: (file: File) => void;
-}
 
 const MENU_ITEMS = [
   { label: "앨범에서 고르기", capture: undefined },
   { label: "카메라로 찍기", capture: "environment" },
 ] as const;
 
-export const PhotoAddMenu = ({ onSelectPhoto }: PhotoAddMenuProps) => {
+export const PhotoAddMenu = () => {
+  const router = useRouter();
+  const setOriginalFile = usePhotoDraftStore((state) => state.setOriginalFile);
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -40,7 +40,9 @@ export const PhotoAddMenu = ({ onSelectPhoto }: PhotoAddMenuProps) => {
 
     buttonRef.current?.focus();
 
-    if (file) onSelectPhoto?.(file);
+    if (!file) return;
+    setOriginalFile(file);
+    router.push("/photo/edit");
   };
 
   const handleToggle = () => {
