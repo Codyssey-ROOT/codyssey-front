@@ -3,18 +3,21 @@ import type { NotificationDto } from "@/types/notification";
 const MOCK_NOTIFICATIONS: NotificationDto[] = [
   {
     id: "notification-0",
+    link: "/photo/mock-2",
     title: "사진 처리 완료",
     message: "요청하신 사진이 보호가 완료되었습니다.",
     createdAt: "2026-10-31T09:00:00.000Z",
   },
   {
     id: "notification-1",
+    link: "/home",
     title: "사진 처리 오류",
     message: "요청하신 사진을 보호 중 오류가 발생하였습니다.",
     createdAt: "2026-10-30T09:00:00.000Z",
   },
   {
     id: "notification-2",
+    link: "/home",
     title: "취약점 발견",
     message: "새로운 취약점이 발견되었습니다.\n취약한 사진들을 확인하세요.",
     createdAt: "2026-10-29T09:00:00.000Z",

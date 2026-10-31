@@ -4,23 +4,21 @@ import { useRouter } from "next/navigation";
 
 import logo from "@/assets/images/logo.svg";
 import { EmptyState } from "@/components/common/EmptyState";
+import { ErrorState } from "@/components/common/ErrorState";
+import { LoadingState } from "@/components/common/LoadingState";
 import { PageHeader } from "@/components/common/PageHeader";
 import { NotificationCard } from "@/components/notification/NotificationCard";
 import { useNotificationsQuery } from "@/hooks/notification/useNotificationsQuery";
 
 const NotificationsPage = () => {
   const router = useRouter();
-  const { data: notifications, isPending, isError } = useNotificationsQuery();
+  const { data: notifications, isPending, isError, refetch } = useNotificationsQuery();
 
   const renderContent = () => {
-    if (isPending) return null;
+    if (isPending) return <LoadingState />;
 
     if (isError) {
-      return (
-        <p role="alert" className="m-auto text-body-3 text-fg-disable">
-          알림을 불러오지 못했어요
-        </p>
-      );
+      return <ErrorState title="알림을 불러오지 못했어요" onRetry={() => void refetch()} />;
     }
 
     if (notifications.length === 0) {
@@ -42,9 +40,19 @@ const NotificationsPage = () => {
 
     return (
       <ul className="flex flex-col gap-2.5">
-        {notifications.map(({ id, title, message }) => (
+        {notifications.map(({ id, title, message, link }) => (
           <li key={id}>
-            <NotificationCard title={title} message={message} />
+            {link ? (
+              <button
+                type="button"
+                onClick={() => router.push(link)}
+                className="block w-full rounded-16 text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+              >
+                <NotificationCard title={title} message={message} />
+              </button>
+            ) : (
+              <NotificationCard title={title} message={message} />
+            )}
           </li>
         ))}
       </ul>
