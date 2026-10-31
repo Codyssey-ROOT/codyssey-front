@@ -31,7 +31,7 @@ const InfoBox = ({ variant, title, className, children, ...props }: InfoBoxProps
       {variant === "summary" ? (
         <>
           <p className="flex items-center gap-1.5 text-h4 text-fg-title">
-            <ShieldCheck aria-hidden className="size-5 shrink-0 text-primary" />
+            <ShieldCheck aria-hidden className="size-5 shrink-0 text-success" />
             {title}
           </p>
           <div className="leading-relaxed">{children}</div>

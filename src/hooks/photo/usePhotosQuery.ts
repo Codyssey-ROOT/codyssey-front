@@ -1,6 +1,6 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { fetchPhotos, fetchPhotosByStatus } from "@/apis/photo/api";
+import { deletePhoto, fetchPhoto, fetchPhotos, fetchPhotosByStatus } from "@/apis/photo/api";
 import { photoKeys } from "@/apis/photo/keys";
 import type { PhotoStatus } from "@/types/photo";
 
@@ -18,5 +18,24 @@ export const usePhotosInfiniteQuery = () => {
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
     select: (data) => data.pages.flatMap((page) => page.photos),
+  });
+};
+
+export const usePhotoQuery = (id: string) => {
+  return useQuery({
+    queryKey: photoKeys.detail(id),
+    queryFn: () => fetchPhoto(id),
+  });
+};
+
+export const useDeletePhotoMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deletePhoto,
+    onSuccess: (_data, id) => {
+      queryClient.removeQueries({ queryKey: photoKeys.detail(id) });
+      return queryClient.invalidateQueries({ queryKey: photoKeys.lists() });
+    },
   });
 };
