@@ -20,8 +20,8 @@ const PageIndicator = ({ total, current, className, ...props }: PageIndicatorPro
           key={index}
           aria-hidden
           className={cn(
-            "size-1.5 rounded-full bg-fg-disable-light",
-            index === current && "bg-fg-title",
+            "h-1.5 rounded-full transition-all",
+            index === current ? "w-3 bg-fg-title" : "w-1.5 bg-fg-disable-light",
           )}
         />
       ))}

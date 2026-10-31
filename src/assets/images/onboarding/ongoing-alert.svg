@@ -1,0 +1,33 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="photo" x1="40" y1="60" x2="160" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BBBCBD"/>
+      <stop offset="1" stop-color="#4B4B4B"/>
+    </linearGradient>
+    <linearGradient id="bell" x1="120" y1="40" x2="180" y2="170" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#9DA5B6"/>
+    </linearGradient>
+  </defs>
+  <!-- Stacked photos -->
+  <rect x="30" y="92" width="104" height="104" rx="16" fill="#E9E9EA" transform="rotate(-10 30 92)"/>
+  <rect x="44" y="96" width="104" height="104" rx="16" fill="url(#photo)"/>
+  <circle cx="74" cy="126" r="11" fill="#E9E9EA"/>
+  <path d="M52 192l32-38 22 24 14-14 28 28H52Z" fill="#1C1D20" opacity="0.85"/>
+  <g transform="translate(-14 8)">
+  <!-- Bell -->
+  <path d="M164 46c-24 0-42 19-42 44v26l-12 18v8h108v-8l-12-18V90c0-25-18-44-42-44Z" fill="#1C1D20"/>
+  <path d="M164 54c-19 0-34 16-34 37v27l-10 15h88l-10-15V91c0-21-15-37-34-37Z" fill="url(#bell)"/>
+  <path d="M150 150a14 14 0 0 0 28 0" fill="#1C1D20"/>
+  <rect x="158" y="34" width="12" height="14" rx="6" fill="#1C1D20"/>
+  <!-- Signal arcs -->
+  <path d="M106 64a64 64 0 0 0-10 26" stroke="#858894" stroke-width="6" stroke-linecap="round"/>
+  <path d="M222 64a64 64 0 0 1 10 26" stroke="#858894" stroke-width="6" stroke-linecap="round"/>
+  <path d="M116 72a48 48 0 0 0-6 18" stroke="#BBBCBD" stroke-width="5" stroke-linecap="round"/>
+  <path d="M212 72a48 48 0 0 1 6 18" stroke="#BBBCBD" stroke-width="5" stroke-linecap="round"/>
+  <!-- Alert dot -->
+  <circle cx="196" cy="66" r="14" fill="#1C1D20" stroke="#FFFFFF" stroke-width="4"/>
+  <rect x="194" y="57" width="4" height="11" rx="2" fill="#FFFFFF"/>
+  <circle cx="196" cy="73" r="2.5" fill="#FFFFFF"/>
+  </g>
+</svg>

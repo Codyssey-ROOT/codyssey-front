@@ -1,5 +1,5 @@
 import type { FetchPhotosRequest, PhotoDto, PhotoPageDto, PhotoStatus } from "@/types/photo";
-import { getMockPhotos, waitForMockNetwork } from "./mock-photos";
+import { deleteMockPhoto, getMockPhotos, waitForMockNetwork } from "./mock-photos";
 
 const PAGE_SIZE = 10;
 
@@ -18,4 +18,16 @@ export const fetchPhotos = async ({ cursor = 0 }: FetchPhotosRequest): Promise<P
     photos: photos.slice(cursor, nextCursor),
     nextCursor: nextCursor < photos.length ? nextCursor : null,
   };
+};
+
+export const fetchPhoto = async (id: string): Promise<PhotoDto> => {
+  await waitForMockNetwork();
+  const photo = getMockPhotos().find((item) => item.id === id);
+  if (!photo) throw new Error("사진을 찾을 수 없어요");
+  return photo;
+};
+
+export const deletePhoto = async (id: string): Promise<void> => {
+  await waitForMockNetwork();
+  deleteMockPhoto(id);
 };
