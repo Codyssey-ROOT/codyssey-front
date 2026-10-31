@@ -3,7 +3,7 @@
 import { Download, Share } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BottomCTA } from "@/components/common/BottomCTA";
 import { Button } from "@/components/common/Button";
@@ -30,6 +30,9 @@ export const PhotoDetail = () => {
   const { photoId } = useParams<{ photoId: string }>();
   const { data: photo, isPending, isError, refetch } = usePhotoQuery(photoId);
   const [filterTab, setFilterTab] = useState("before");
+
+  // Next keeps this page's state between visits, so reset the tab on leave to start on "필터링 전".
+  useEffect(() => () => setFilterTab("before"), []);
   const { showToast } = useToast();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const deletePhotoMutation = useDeletePhotoMutation();
@@ -41,8 +44,7 @@ export const PhotoDetail = () => {
       onSuccess: () => {
         setIsDeleteDialogOpen(false);
         showToast("사진을 삭제했어요");
-        // Keeps ?mock= so home shows the same mock data minus this photo.
-        router.replace(`/home${window.location.search}`);
+        router.replace("/home");
       },
       onError: () => {
         setIsDeleteDialogOpen(false);
@@ -92,7 +94,7 @@ export const PhotoDetail = () => {
     recheckPhotoMutation.mutate(photoId, {
       onSuccess: () => {
         showToast("재점검을 요청했어요. 끝나면 알려드릴게요");
-        router.replace(`/home${window.location.search}`);
+        router.replace("/home");
       },
       onError: () => showToast("재점검을 요청하지 못했어요"),
     });
