@@ -51,6 +51,10 @@
   --color-green-background: #e0fee7;
   --color-green-text: #4e9a52;
 
+  /* Kakao login (Kakao design guide: container #FEE500, label black 85%) */
+  --color-kakao: #fee500;
+  --color-kakao-label: rgb(0 0 0 / 0.85);
+
   /* Neutral */
   --color-gray-1: #e9e9ea;
   --color-gray-2: #dededf;
