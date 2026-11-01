@@ -68,7 +68,7 @@ export const useRecheckPhotoMutation = () => {
 
   return useMutation({
     mutationFn: requestPhotoRecheck,
-    onSuccess: (_data, id) => {
+    onSuccess: (_data, { id }) => {
       void queryClient.invalidateQueries({ queryKey: photoKeys.detail(id) });
       return queryClient.invalidateQueries({ queryKey: photoKeys.lists() });
     },
