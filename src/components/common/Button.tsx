@@ -2,9 +2,8 @@ import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
-// Figma: Button, Flexable Button, CTA / Bottom Button
 const buttonVariants = cva(
-  "inline-flex h-13 shrink-0 items-center justify-center gap-1.5 rounded-16 px-5 text-bottom-button whitespace-nowrap transition-colors outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:border-transparent disabled:bg-surface-7 disabled:text-fg-disable [&_svg]:size-5 [&_svg]:shrink-0",
+  "inline-flex h-13 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-16 px-5 text-bottom-button whitespace-nowrap transition-colors outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:border-transparent disabled:bg-surface-7 disabled:text-fg-disable [&_svg]:size-5 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -12,6 +11,7 @@ const buttonVariants = cva(
         secondary:
           "border border-border-1 bg-white text-fg-title hover:bg-bg-gray active:bg-surface-7",
         blue: "bg-primary text-white hover:bg-primary-hover active:bg-primary-active",
+        danger: "bg-warning text-white hover:bg-warning/90 active:bg-warning/80",
       },
       isFullWidth: {
         true: "w-full",

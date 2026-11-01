@@ -47,3 +47,6 @@ storybook-static
 # protect-mcp local receipts
 receipts/
 review-receipts/
+
+# local https certificates (pnpm dev:local)
+certificates/
