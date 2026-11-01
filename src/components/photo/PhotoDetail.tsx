@@ -91,13 +91,20 @@ export const PhotoDetail = () => {
   };
 
   const handleRecheck = () => {
-    recheckPhotoMutation.mutate(photoId, {
-      onSuccess: () => {
-        showToast("재점검을 요청했어요. 끝나면 알려드릴게요");
-        router.replace("/home");
+    if (!photo?.objectKey) {
+      showToast("재점검할 원본 사진이 없어요");
+      return;
+    }
+    recheckPhotoMutation.mutate(
+      { id: photoId, objectKey: photo.objectKey },
+      {
+        onSuccess: () => {
+          showToast("재점검을 요청했어요. 끝나면 알려드릴게요");
+          router.replace("/home");
+        },
+        onError: () => showToast("재점검을 요청하지 못했어요"),
       },
-      onError: () => showToast("재점검을 요청하지 못했어요"),
-    });
+    );
   };
 
   const renderContent = () => {

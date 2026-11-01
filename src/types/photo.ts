@@ -5,6 +5,8 @@ export interface PhotoDto {
   imageUrl?: string;
   /** The protected version shown on the detail page's "필터링 후" tab. */
   filteredImageUrl?: string;
+  /** S3 key of the original image; recheck sends it to /images/complete again. */
+  objectKey?: string;
   status: PhotoStatus;
   createdAt?: string;
 }
@@ -68,5 +70,10 @@ export interface UploadUrlDto {
 }
 
 export interface CompleteUploadRequest {
+  objectKey: string;
+}
+
+export interface RecheckPhotoRequest {
+  id: string;
   objectKey: string;
 }
