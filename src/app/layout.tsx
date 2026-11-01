@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import "@/styles/globals.css";
 import { AppToast } from "@/components/common/AppToast";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { SERVICE_NAME } from "@/const/service";
 
 const pretendard = localFont({
   src: "../../node_modules/pretendard/dist/web/variable/woff2/PretendardVariable.woff2",
@@ -13,8 +14,8 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Codyssey",
-  description: "Codyssey",
+  title: SERVICE_NAME,
+  description: "딥페이크와 개인정보 노출로부터 내 사진을 지켜요",
 };
 
 export const viewport: Viewport = {
